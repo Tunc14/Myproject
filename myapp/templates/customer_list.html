@@ -1,0 +1,44 @@
+<h1>Customer List</h1>
+<form method="post" action="{% url 'search_customer%}">
+    {% csrf_token %}
+    <input type="text" name ="search_query" placeholder="Make researches">
+    <button> type="submit"><researches></researches></button>
+    </form>
+    <table>
+        <thead>
+            <tr>            
+                <th>ID</th>
+                <th>TC</th>
+                <th>First name</th>
+                <th>Surname</th>
+                <th>Phone Number</th>
+                <th>City</th>
+                <th>District</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+          <td>{{ customer.id_number }}</td>
+          <td>{{ customer.tc_number }}</td>
+          <td>{{ customer.first_name }}</td>
+          <td>{{ customer.last_name }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>{{ customer.city }}</td>
+          <td>{{ customer.district }}</td>
+          <td><a href="{% url 'edit_customer' customer.id_number %}">Düzenle</a></td>
+          <td><a href="{% url 'delete_customer' customer.id_number %}">Sil</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+            <tr>
+                <td colspan="9">No Records Found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'register_customer' %}"> New Customer Records</a>
